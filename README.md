@@ -65,10 +65,43 @@ session_destroy();
 
 ## Conexão com PostgreSQL
 ### Instalação da extensão `pgsql`
+
+No arquivo de configuração do Php5 (php.ini) inclua a linha abaixo para ativiar o PostgreSQL no Php5.
+
+```
+extension=php_pgsql.dll
+```
+
+### Criando o BD
+
+No PostgreSQL crie uma banco de dados chamado "produtos" no PgAdmin.
+
+Crie a tabela abaixo no PgAdmin:
+```
+CREATE TABLE IF NOT EXISTS public.usuario
+(
+    idusuario integer NOT NULL DEFAULT nextval('usuario_idusuario_seq'::regclass),
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(32) COLLATE pg_catalog."default" NOT NULL,
+    status boolean DEFAULT true,
+    CONSTRAINT usuario_pkey PRIMARY KEY (idusuario)
+)
+```
+
+Insira no PgAdmin o registro abaixo:
+
+```
+INSERT INTO public.usuario(
+	username, password, status)
+	VALUES ("admin", "123456", true);
+
+```
+
+
 ### Criando a conexão:
 ```php
 <?php
-$conn = pg_connect("host=localhost dbname=meubanco user=meuusuario password=minhasenha");
+$conn = pg_connect("host=localhost dbname=produtos user=postgres password=123456");
 if (!$conn) {
     echo "Erro na conexão com o banco de dados.";
 }
