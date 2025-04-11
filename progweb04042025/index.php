@@ -1,26 +1,5 @@
 <?php
-session_start();
-
-$_SESSION["username"] = $_POST["username"];
-$_SESSION["password"] = $_POST["password"];
-$_SESSION["tentativa"] = $_GET["tentativa"];
-
-
-$conn = pg_connect("host=localhost dbname=produtos user=postgres password=123456");
-if (!$conn) {
-    echo "Erro na conexão com o banco de dados.";
-}
-
-$resultado = pg_query($conn, "SELECT * FROM usuario Where username='" . $_SESSION["username"] . "' and password='" . $_POST["password"] . "' ");
-if ($linha = pg_fetch_assoc($resultado)) {
-    //echo "Nome: " . $linha['username'] . "<br>";
-}
-else
-{
-    header("Location: login.php?msgerro=deu ruim!");
-    exit();
-}
-
+    require "conexao.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -108,15 +87,7 @@ else
 <body>
 
     <!-- Barra de navegação -->
-    <div class="navbar">
-        <div class="logo">Minha Empresa</div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Usuários</a>
-            <a href="produtos.php">Produtos</a>
-            <a href="#">Pedidos</a>
-        </nav>
-    </div>
+    <?php include "menu.php";?>   
 
     <!-- Conteúdo principal -->
     <div class="content">
