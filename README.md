@@ -166,4 +166,23 @@ include 'cabecalho.php';
 - `include`: Em caso de erro, exibe um aviso e continua
 - `require`: Em caso de erro, interrompe a execução
 
+## Criando a página de produtos
 
+### Criando a tabela de produtos no BD
+
+```
+CREATE TABLE IF NOT EXISTS public.produto
+(
+    idproduto integer NOT NULL DEFAULT nextval('produto_idproduto_seq'::regclass),
+    produtonome character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    produtopreco real NOT NULL DEFAULT 0,
+    produtofoto character varying(150) COLLATE pg_catalog."default",
+    produtostatus boolean DEFAULT false,
+    CONSTRAINT produto_pkey PRIMARY KEY (idproduto)
+)
+```
+
+Se precisar recriar a tabela, primeiro a remova com o SQL abaixo e depois recrie novamente com o SQL acima.
+```
+DROP TABLE IF EXISTS public.produto;
+```
